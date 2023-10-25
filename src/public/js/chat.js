@@ -10,11 +10,11 @@ let user;
 
 Swal.fire({
   title: "Welcome!",
-  text: "What is your name",
+  text: "What is your email?",
   input: "text",
   inputValidator: (value) => {
     if (!value) {
-      return "Name is required";
+      return "Email is required";
     }
   },
   confirmButtonText: "Enter",
@@ -48,7 +48,7 @@ socketClient.on("connected", () => {
 form.onsubmit = (e) => {
   e.preventDefault();
   const infoMessage = {
-    name: user,
+    email: user,
     message: inputMessage.value,
   };  
   socketClient.emit("message", infoMessage);  
@@ -59,7 +59,7 @@ form.onsubmit = (e) => {
 socketClient.on("chat", (messages) => {
   const chat = messages
     .map((m) => {
-      return `<p>${m.name}: ${m.message}</p>`;
+      return `<p>${m.email}: ${m.message}</p>`;
     })
     .join(" ");
   divChat.innerHTML = chat;
